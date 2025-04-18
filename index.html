@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HIT NodeJS 2025 - Tài liệu học tập</title>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css"
+            id="light-highlight-theme"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+            id="dark-highlight-theme"
+            disabled
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+        <style>
+            :root {
+                /* GitHub Light Theme Colors */
+                --background-color: #ffffff;
+                --text-color: #24292f;
+                --primary-color: #0969da;
+                --secondary-color: #0969da;
+                --header-bg: #24292f;
+                --header-text: #ffffff;
+                --card-bg: #ffffff;
+                --card-border: #d0d7de;
+                --hover-bg: #f6f8fa;
+                --code-bg: #f6f8fa;
+                --blockquote-border: #d0d7de;
+                --table-header-bg: #f6f8fa;
+                --table-border: #d0d7de;
+                --modal-bg: #ffffff;
+                --modal-overlay: rgba(0, 0, 0, 0.4);
+                --shadow-color: rgba(0, 0, 0, 0.1);
+                --button-hover: #0550ae;
+            }
+
+            [data-theme='dark'] {
+                /* GitHub Dark Theme Colors */
+                --background-color: #0d1117;
+                --text-color: #c9d1d9;
+                --primary-color: #58a6ff;
+                --secondary-color: #58a6ff;
+                --header-bg: #161b22;
+                --header-text: #f0f6fc;
+                --card-bg: #161b22;
+                --card-border: #30363d;
+                --hover-bg: #1f2937;
+                --code-bg: #1f2937;
+                --blockquote-border: #30363d;
+                --table-header-bg: #1f2937;
+                --table-border: #30363d;
+                --modal-bg: #161b22;
+                --modal-overlay: rgba(0, 0, 0, 0.7);
+                --shadow-color: rgba(0, 0, 0, 0.3);
+                --button-hover: #388bfd;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+                background-color: var(--background-color);
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            header {
+                background-color: var(--header-bg);
+                color: var(--header-text);
+                padding: 30px 20px;
+                text-align: center;
+                position: relative;
+            }
+            h1 {
+                margin: 0;
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+                opacity: 0.8;
+                margin-top: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 30px;
+                background-color: var(--card-bg);
+                box-shadow: 0 2px 10px var(--shadow-color);
+            }
+            th,
+            td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid var(--card-border);
+            }
+            th {
+                background-color: var(--header-bg);
+                color: var(--header-text);
+                font-size: 1.1rem;
+            }
+            tr:hover {
+                background-color: var(--hover-bg);
+            }
+            .week-number {
+                font-weight: bold;
+                color: var(--primary-color);
+                width: 80px;
+                text-align: center;
+            }
+            .content-cell {
+                line-height: 1.8;
+            }
+            .content-cell ul {
+                padding-left: 20px;
+                margin: 10px 0;
+            }
+            .content-cell li {
+                margin-bottom: 5px;
+            }
+            .doc-link {
+                display: inline-block;
+                margin-top: 10px;
+                color: var(--primary-color);
+                text-decoration: none;
+                font-weight: 500;
+                border: 1px solid var(--primary-color);
+                padding: 5px 10px;
+                border-radius: 3px;
+                font-size: 0.9rem;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            .doc-link:hover {
+                background-color: var(--primary-color);
+                color: white;
+            }
+            footer {
+                text-align: center;
+                margin-top: 30px;
+                padding: 20px;
+                font-size: 0.9rem;
+                color: var(--text-color);
+                opacity: 0.7;
+            }
+
+            /* GitHub-style Markdown rendering */
+            .markdown-content {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Helvetica, Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.5;
+                word-wrap: break-word;
+                padding: 30px;
+                background-color: var(--card-bg);
+                border-radius: 6px;
+                box-shadow: 0 2px 10px var(--shadow-color);
+                color: var(--text-color);
+            }
+
+            .markdown-content h1,
+            .markdown-content h2 {
+                padding-bottom: 0.3em;
+                border-bottom: 1px solid var(--card-border);
+            }
+
+            .markdown-content h1 {
+                font-size: 2em;
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-weight: 600;
+            }
+
+            .markdown-content h2 {
+                font-size: 1.5em;
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-weight: 600;
+            }
+
+            .markdown-content h3 {
+                font-size: 1.25em;
+                margin-top: 24px;
+                margin-bottom: 16px;
+                font-weight: 600;
+            }
+
+            .markdown-content pre {
+                padding: 16px;
+                overflow: auto;
+                font-size: 85%;
+                line-height: 1.45;
+                background-color: var(--code-bg);
+                border-radius: 6px;
+            }
+
+            .markdown-content code {
+                padding: 0.2em 0.4em;
+                margin: 0;
+                font-size: 85%;
+                background-color: var(--code-bg);
+                border-radius: 6px;
+                font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo,
+                    monospace;
+            }
+
+            .markdown-content pre code {
+                padding: 0;
+                background-color: transparent;
+            }
+
+            .markdown-content table {
+                display: block;
+                width: 100%;
+                overflow: auto;
+                border-spacing: 0;
+                border-collapse: collapse;
+            }
+
+            .markdown-content table th {
+                font-weight: 600;
+                background-color: var(--table-header-bg);
+                color: var(--text-color);
+            }
+
+            .markdown-content table th,
+            .markdown-content table td {
+                padding: 6px 13px;
+                border: 1px solid var(--table-border);
+            }
+
+            .markdown-content table tr {
+                background-color: var(--card-bg);
+                border-top: 1px solid var(--table-border);
+            }
+
+            .markdown-content table tr:nth-child(2n) {
+                background-color: var(--hover-bg);
+            }
+
+            .markdown-content blockquote {
+                padding: 0 1em;
+                color: var(--text-color);
+                opacity: 0.7;
+                border-left: 0.25em solid var(--blockquote-border);
+                margin: 0 0 16px 0;
+            }
+
+            .markdown-content hr {
+                height: 0.25em;
+                padding: 0;
+                margin: 24px 0;
+                background-color: var(--card-border);
+                border: 0;
+            }
+
+            .markdown-content ul,
+            .markdown-content ol {
+                padding-left: 2em;
+            }
+
+            /* Modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: var(--modal-overlay);
+                padding: 20px;
+            }
+
+            .modal-content {
+                background-color: var(--modal-bg);
+                margin: 20px auto;
+                padding: 0;
+                width: 90%;
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px var(--shadow-color);
+                position: relative;
+            }
+
+            .modal-header {
+                padding: 16px 24px;
+                border-bottom: 1px solid var(--card-border);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                background-color: var(--modal-bg);
+                z-index: 10;
+            }
+
+            .modal-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin: 0;
+            }
+
+            .close-button {
+                cursor: pointer;
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: var(--text-color);
+                border: none;
+                background: transparent;
+                opacity: 0.7;
+                transition: opacity 0.3s;
+            }
+
+            .close-button:hover {
+                opacity: 1;
+            }
+
+            .loading-spinner {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 200px;
+            }
+
+            .spinner {
+                border: 4px solid var(--card-border);
+                border-top: 4px solid var(--primary-color);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Dark mode toggle switch */
+            .theme-switch-wrapper {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+            .theme-switch {
+                display: inline-block;
+                height: 26px;
+                position: relative;
+                width: 50px;
+            }
+
+            .theme-switch input {
+                display: none;
+            }
+
+            .slider {
+                background-color: rgba(0, 0, 0, 0.25);
+                bottom: 0;
+                cursor: pointer;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                transition: 0.4s;
+                border-radius: 34px;
+            }
+
+            .slider:before {
+                background-color: #fff;
+                bottom: 3px;
+                content: '';
+                height: 20px;
+                left: 4px;
+                position: absolute;
+                transition: 0.4s;
+                width: 20px;
+                border-radius: 50%;
+            }
+
+            input:checked + .slider {
+                background-color: var(--primary-color);
+            }
+
+            input:checked + .slider:before {
+                transform: translateX(24px);
+            }
+
+            .theme-icon {
+                margin: 0 5px;
+                font-size: 18px;
+                color: var(--header-text);
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .theme-switch-wrapper {
+                    position: relative;
+                    top: initial;
+                    right: initial;
+                    justify-content: center;
+                    margin-top: 15px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>HIT NodeJS 2025</h1>
+            <div class="subtitle">Tài liệu học tập</div>
+
+            <!-- Dark mode toggle switch -->
+            <div class="theme-switch-wrapper">
+                <span class="theme-icon">☀️</span>
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+                <span class="theme-icon">🌙</span>
+            </div>
+        </header>
+
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Buổi</th>
+                        <th>Nội dung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="week-number">1</td>
+                        <td class="content-cell">
+                            <strong
+                                >Tổng quan về Node.js & Ôn tập
+                                JavaScript</strong
+                            >
+                            <ul>
+                                <li>Giới thiệu về Node.js</li>
+                                <li>Cài đặt và sử dụng Node.js</li>
+                                <li>Ôn tập JavaScript</li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-1/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">2</td>
+                        <td class="content-cell">
+                            <strong>Giới thiệu Express.js cơ bản</strong>
+                            <ul>
+                                <li>Express.js là gì?</li>
+                                <li>
+                                    Cài đặt và thiết lập dự án Express đầu tiên
+                                </li>
+                                <li>HTTP Method (GET, POST, PUT, PATCH,...)</li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-2/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">3</td>
+                        <td class="content-cell">
+                            <strong>Template engine và mô hình MVC</strong>
+                            <ul>
+                                <li>Template engine (EJS)</li>
+                                <li>Mô hình MVC trong Express.js</li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-3/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">4</td>
+                        <td class="content-cell">
+                            <strong>Xây dựng CRUD API với file JSON</strong>
+                            <ul>
+                                <li>Đọc, ghi file JSON bằng Node.js (fs)</li>
+                                <li>
+                                    Xây dựng API CRUD user thao tác với dữ liệu
+                                    JSON
+                                </li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-4/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">5</td>
+                        <td class="content-cell">
+                            <strong
+                                >Cơ sở dữ liệu MongoDB và ODM Mongoose</strong
+                            >
+                            <ul>
+                                <li>Giới thiệu NoSQL và MongoDB</li>
+                                <li>
+                                    Cài đặt MongoDB và MongoDB Compass (MongoDB
+                                    Atlas*)
+                                </li>
+                                <li>
+                                    Giới thiệu Mongoose, thiết lập kết nối giữa
+                                    server Express và MongoDB
+                                </li>
+                                <li>
+                                    Xây dựng API CRUD user theo tác với MongoDB
+                                </li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-5/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">6</td>
+                        <td class="content-cell">
+                            <strong
+                                >Middleware, Error Handling, Validation</strong
+                            >
+                            <ul>
+                                <li>Giới thiệu Middleware trong Express</li>
+                                <li>
+                                    Xử lý lỗi trong Express (Error Handling
+                                    Middleware)
+                                </li>
+                                <li>Validate dữ liệu đầu vào với Joi</li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-6/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">7</td>
+                        <td class="content-cell">
+                            <strong>Authentication & Authorization</strong>
+                            <ul>
+                                <li>
+                                    Khái niệm Authentication và Authorization
+                                </li>
+                                <li>
+                                    Cơ chế xác thực với JSON Web Token (JWT)
+                                </li>
+                                <li>
+                                    Xây dựng API liên quan đến xác thực/phân
+                                    quyền người dùng
+                                </li>
+                            </ul>
+                            <a
+                                href="#"
+                                class="doc-link"
+                                data-doc-path="./week-7/docs.md"
+                                >Xem tài liệu</a
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">8</td>
+                        <td class="content-cell">
+                            <strong>Upload file bằng Multer</strong>
+                            <ul>
+                                <li>Giới thiệu Multer trong Express.js</li>
+                                <li>
+                                    Cấu hình Multer để upload file lên server
+                                </li>
+                                <li>Lưu trữ file cục bộ (cloud*)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">9</td>
+                        <td class="content-cell">
+                            <strong
+                                >Mối quan hệ giữa các model trong MongoDB & Truy
+                                vấn nâng cao</strong
+                            >
+                            <ul>
+                                <li>
+                                    Mối quan hệ One-to-Many, Many-to-One trong
+                                    MongoDB
+                                </li>
+                                <li>
+                                    Truy vấn nâng cao: Lọc, Tìm kiếm, Phân
+                                    trang,...
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">10</td>
+                        <td class="content-cell">
+                            <strong>Triển khai ứng dụng lên server</strong>
+                            <ul>
+                                <li>Củng cố những kiến thức chưa vững</li>
+                                <li>
+                                    Giới thiệu các kiến thức nâng cao
+                                    (Nodemailer, SocketIO, Caching, ...)
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">11</td>
+                        <td class="content-cell">
+                            <em>Nội dung đang được chuẩn bị</em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="week-number">12</td>
+                        <td class="content-cell">
+                            <em>Nội dung đang được chuẩn bị</em>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal for displaying Markdown content -->
+        <div id="markdown-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">Document Title</h3>
+                    <button class="close-button">&times;</button>
+                </div>
+                <div id="markdown-container" class="markdown-content">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>HIT NodeJS 2025 - Tài liệu học tập © 2025</p>
+        </footer>
+
+        <script>
+            // Dark mode toggle functionality
+            const toggleSwitch = document.querySelector('#checkbox');
+            const html = document.documentElement;
+            const lightTheme = document.getElementById('light-highlight-theme');
+            const darkTheme = document.getElementById('dark-highlight-theme');
+
+            // Check for saved theme preference or use preferred color scheme
+            const currentTheme =
+                localStorage.getItem('theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'dark'
+                    : 'light');
+
+            // Apply saved theme on page load
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+                toggleSwitch.checked = true;
+                lightTheme.disabled = true;
+                darkTheme.disabled = false;
+            } else {
+                html.setAttribute('data-theme', 'light');
+                toggleSwitch.checked = false;
+                lightTheme.disabled = false;
+                darkTheme.disabled = true;
+            }
+
+            // Toggle theme when switch is clicked
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    html.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    lightTheme.disabled = true;
+                    darkTheme.disabled = false;
+                } else {
+                    html.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    lightTheme.disabled = false;
+                    darkTheme.disabled = true;
+                }
+
+                // Reapply syntax highlighting if content is displayed
+                if (document.querySelector('.hljs')) {
+                    document.querySelectorAll('pre code').forEach((block) => {
+                        hljs.highlightBlock(block);
+                    });
+                }
+            }
+
+            // Add event listener for theme toggle
+            toggleSwitch.addEventListener('change', switchTheme, false);
+
+            // Get modal elements
+            const modal = document.getElementById('markdown-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const markdownContainer =
+                document.getElementById('markdown-container');
+            const closeButton = document.querySelector('.close-button');
+
+            // Get all documentation links
+            const docLinks = document.querySelectorAll('.doc-link');
+
+            // Initialize marked.js with options to match GitHub style
+            marked.setOptions({
+                gfm: true,
+                breaks: true,
+                highlight: function (code, lang) {
+                    if (hljs.getLanguage(lang)) {
+                        return hljs.highlight(code, { language: lang }).value;
+                    }
+                    return hljs.highlightAuto(code).value;
+                },
+            });
+
+            // Add event listeners to all documentation links
+            docLinks.forEach((link) => {
+                link.addEventListener('click', async function (e) {
+                    e.preventDefault();
+                    const docPath = this.getAttribute('data-doc-path');
+
+                    // Show loading spinner
+                    markdownContainer.innerHTML =
+                        '<div class="loading-spinner"><div class="spinner"></div></div>';
+
+                    // Extract title from path (e.g., "week-1/docs.md" -> "Buổi 1")
+                    const weekNumber = docPath.match(/week-(\d+)/)[1];
+                    modalTitle.textContent = `Buổi ${weekNumber}`;
+
+                    // Show the modal
+                    modal.style.display = 'block';
+
+                    try {
+                        // Fetch the Markdown file
+                        const response = await fetch(docPath);
+
+                        if (!response.ok) {
+                            throw new Error(
+                                `Failed to load: ${response.status}`
+                            );
+                        }
+
+                        // Get markdown content
+                        const markdown = await response.text();
+
+                        // Remove the file path comment if present
+                        const cleanMarkdown = markdown.replace(
+                            /\/\/ filepath:.*?\n/g,
+                            ''
+                        );
+
+                        // Convert markdown to HTML and set it in the container
+                        markdownContainer.innerHTML =
+                            marked.parse(cleanMarkdown);
+
+                        // Apply syntax highlighting to code blocks
+                        document
+                            .querySelectorAll('pre code')
+                            .forEach((block) => {
+                                hljs.highlightBlock(block);
+                            });
+                    } catch (error) {
+                        markdownContainer.innerHTML = `
+                            <div style="padding: 20px; color: red;">
+                                <h3>Error Loading Document</h3>
+                                <p>${error.message}</p>
+                            </div>
+                        `;
+                    }
+                });
+            });
+
+            // Close the modal when clicking the close button
+            closeButton.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            // Close the modal when clicking outside the modal content
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Close modal when pressing Escape key
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                }
+            });
+        </script>
+    </body>
+</html>
